@@ -9,7 +9,6 @@ module CommonHelpers
       css_class = options.delete(:class)
       button    = options.delete(:btn)
       style     = options.delete(:style)
-      menu      = options.delete(:menu)
 
       if button == true
         css_class << "btn"
@@ -20,7 +19,7 @@ module CommonHelpers
       html_options[:class] = css_class.join(' ')
       html_options.merge!(options)
 
-      html = link_to path, html_options do
+      link_to path, html_options do
         out  = ''
         if icon_name.present?
           out += fontawesome_icon(icon_name) 
@@ -30,17 +29,17 @@ module CommonHelpers
       
         out.html_safe
       end
+    end
 
-      if menu.present?
-        # encapsulates link tag into a <li></li>
-        if @active_menu == menu
-          li_class = 'active' 
-        end
+    def common_menu(label, path, options={})
+      menu = options.delete(:menu).to_s
 
-        html = content_tag(:li, html, class: li_class)
+      if @active_menu.to_s == menu
+        li_class = 'active' 
       end
 
-      html
+      link_tag = common_link_to(label, path, options)
+      content_tag(:li, link_tag, class: li_class)
     end
 
     private

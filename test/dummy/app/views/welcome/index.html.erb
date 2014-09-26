@@ -3,20 +3,23 @@
 
 <%= common_link_to 'Dashboard', 'javascript:;', icon: :dashboard, btn: true, style: :primary, class: 'btn-xl'  %>
 
+	<p>Common Menu</p>
 	<ul>
-		<%= common_link_to 'Produts', '#', icon: :cubes, 	menu: :products  %>
-		<%= common_link_to 'Orders', 	'#', icon: :star, 	menu: :orders  %>
-		
+		<%= common_menu 'Produts', '#', icon: :'shopping-cart', menu: :products  %>
+		<%#= common_link_to 'Orders', 	'#', icon: :star, 	menu: :orders  %>
+			
 		<li>
-        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-        <ul id="demo" class="collapse">
-            <li>
-                <a href="#">Dropdown Item</a>
-            </li>
-            <li>
-                <a href="#">Dropdown Item</a>
-            </li>
-        </ul>
-    </li>
+			<a href="javascript:;" data-toggle="collapse" data-target="#demo">
+				<i class="fa fa-star"></i> Dropdown <i class="fa fa-caret-down"></i>
+			</a>
+			<ul id="demo" class="collapse">
+				<li>
+					<a href="#">Dropdown Item</a>
+				</li>
+				<li>
+					<a href="#">Dropdown Item</a>
+				</li>
+			</ul>
+		</li>
 		
 	</ul>
