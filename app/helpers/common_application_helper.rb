@@ -4,7 +4,7 @@ module CommonApplicationHelper
   def active_menu(menu_name)
     @active_menu = menu_name
   end
-  
+
   # TODO write a test.
   def common_link_to(label, path, options={})
     default_arguments(options)
@@ -19,16 +19,12 @@ module CommonApplicationHelper
       css_class << "btn"
       css_class << "btn-#{style}" if style.present?
     end
-    
-    if @active_menu.present? and @active_menu == menu
-      css_class << "active"
-    end
-    
+
     html_options = {}
     html_options[:class] = css_class.join(' ')
     html_options.merge!(options)
 
-    link_to path, html_options do
+    html = link_to path, html_options do
       out  = ''
       if icon_name.present?
         out += fontawesome_icon(icon_name) 
@@ -38,6 +34,17 @@ module CommonApplicationHelper
       
       out.html_safe
     end
+
+    if menu.present?
+      # encapsulates link tag into a <li></li>
+      if @active_menu == menu
+        li_class = 'active' 
+      end
+
+      html = content_tag(:li, html, class: li_class)
+    end
+
+    html
   end
   
   private
