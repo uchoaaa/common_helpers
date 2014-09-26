@@ -1,4 +1,9 @@
 module CommonApplicationHelper
+
+  # TODO: make this helper Class level, to call once for all controller actions
+  def active_menu(menu_name)
+    @active_menu = menu_name
+  end
   
   # TODO write a test.
   def common_link_to(label, path, options={})
@@ -8,16 +13,16 @@ module CommonApplicationHelper
     css_class = options.delete(:class)
     button    = options.delete(:btn)
     style     = options.delete(:style)
-    # menu      = options.delete(:menu)
+    menu      = options.delete(:menu)
 
     if button == true
       css_class << "btn"
       css_class << "btn-#{style}" if style.present?
     end
     
-    # if @active_menu.present? and @active_menu == menu
-    #   css_class << "active"
-    # end
+    if @active_menu.present? and @active_menu == menu
+      css_class << "active"
+    end
     
     html_options = {}
     html_options[:class] = css_class.join(' ')
