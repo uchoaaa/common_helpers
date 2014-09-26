@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
   def index
-    @active_menu = :products
+    active_menu :products
   end
 end
