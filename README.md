@@ -31,14 +31,21 @@ The host app should load bootstrap and font-awesome assets!
 	
 ### CommonLinkToMenu
 	
-	<ul class="sidebar-menu">
-		<%= common_link_to 'Products', products_path,  icon: :cubes, menu: :products %>
+	<ul class="nav-bar">
+		<%= common_menu 'Produts', '#', icon: :cubes, menu: :products  %>
+
+		<%= common_menu 'Orders',  '#', icon: :star,  menu: :orders do %>
+			<% common_sub_menu 'Inactive', '#', icon: :play %>
+			<% common_sub_menu 'Active', 	 '#', icon: :flag %>
+		<% end %>
 	</ul>
+
 	
 	class ProductsController
 		def index
+			# makes the the Products menu item highlight
 			active_menu :products
-			# ...
+			# could be :orders too
 		end
 	end
 	

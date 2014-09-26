@@ -31,17 +31,49 @@ module CommonHelpers
       end
     end
 
-    def common_menu(label, path, options={})
+    def common_menu(label, path, options={}, &block)
       menu = options.delete(:menu).to_s
+      
+      @sub_menus = ''
 
-      if @active_menu.to_s == menu
-        li_class = 'active' 
+      if block_given? # tenho sub menus?
+
+        # preencho @sub_menus com o html 
+        yield
+
+        # gero um <ul> para o sub menu
+        ul_tag = content_tag(:ul, @sub_menus.html_safe, class: 'collapse', id: "menu_#{menu}")
+
+        # marco a <a> do menu como toggable
+        options.merge!({
+          'data-toggle' => "collapse",
+          'data-target' => "#menu_#{menu}"
+        })
+
+        # add o caret como label
+        label = "#{label} #{fontawesome_icon('caret-down')}"
       end
 
+      # is active?
+      li_class = 'active'  if @active_menu.to_s == menu
+      
       link_tag = common_link_to(label, path, options)
-      content_tag(:li, link_tag, class: li_class)
-    end
+      content_tag(:li, class: li_class) do
+        out  = ''
+        out += link_tag
+        out += ul_tag if ul_tag
 
+        out.html_safe
+      end
+    end
+    
+    def common_sub_menu(label, path, options={})
+      link_tag = common_link_to(label, path, options)
+      @sub_menus << content_tag(:li, link_tag)
+      
+      nil # sempre retorna nil para não imprimir no html se o usuário usar <%= ... 
+    end
+    
     private
 
     def default_arguments(options)

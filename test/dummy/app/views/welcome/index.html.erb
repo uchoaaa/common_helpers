@@ -4,22 +4,11 @@
 <%= common_link_to 'Dashboard', 'javascript:;', icon: :dashboard, btn: true, style: :primary, class: 'btn-xl'  %>
 
 	<p>Common Menu</p>
-	<ul>
+	<ul class="hand-written">
 		<%= common_menu 'Produts', '#', icon: :'shopping-cart', menu: :products  %>
-		<%#= common_link_to 'Orders', 	'#', icon: :star, 	menu: :orders  %>
-			
-		<li>
-			<a href="javascript:;" data-toggle="collapse" data-target="#demo">
-				<i class="fa fa-star"></i> Dropdown <i class="fa fa-caret-down"></i>
-			</a>
-			<ul id="demo" class="collapse">
-				<li>
-					<a href="#">Dropdown Item</a>
-				</li>
-				<li>
-					<a href="#">Dropdown Item</a>
-				</li>
-			</ul>
-		</li>
-		
+
+		<%= common_menu 'Orders', '#',  icon: :'star', menu: :orders do %>
+			<% common_sub_menu 'Inactive', '#', icon: :play, sub_menu: :inactive %>
+			<% common_sub_menu 'Active', 	'#', 	icon: :flag, sub_menu: :active %>
+		<% end %>
 	</ul>
